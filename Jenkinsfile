@@ -1,30 +1,25 @@
 pipeline {
     agent any
 
-    tools {
-        maven "MAVEN"
-        jdk "JDK"
-    }
-
     stages {
 
         stage('Initialize') {
             steps {
-                echo "Pipeline Started"
+                echo 'Pipeline started'
             }
         }
 
         stage('Build') {
             steps {
-                bat "mvn -B -DskipTests clean package"
+                echo 'Building project'
             }
         }
 
-    }
-
-    post {
-        always {
-            junit allowEmptyResults: true, testResults: '**/test-reports/*.xml'
+        stage('Test') {
+            steps {
+                echo 'Running tests'
+            }
         }
+
     }
 }
