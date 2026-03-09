@@ -10,16 +10,13 @@ pipeline {
 
         stage('Initialize') {
             steps {
-                echo "PATH = ${M2_HOME}/bin:${PATH}"
-                echo "M2_HOME = /opt/maven"
+                echo "Pipeline Started"
             }
         }
 
         stage('Build') {
             steps {
-                dir("my-app") {
-                    bat "mvn -B -DskipTests clean package"
-                }
+                bat "mvn -B -DskipTests clean package"
             }
         }
 
@@ -27,10 +24,7 @@ pipeline {
 
     post {
         always {
-            junit(
-                allowEmptyResults: true,
-                testResults: '**/test-reports/*.xml'
-            )
+            junit allowEmptyResults: true, testResults: '**/test-reports/*.xml'
         }
     }
 }
