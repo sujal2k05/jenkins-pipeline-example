@@ -17,8 +17,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir("/var/lib/jenkins/workspace/demopipelinetask/my-app") {
-                    sh 'mvn -B -DskipTests clean package'
+                dir("my-app") {
+                    bat "mvn -B -DskipTests clean package"
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
         always {
             junit(
                 allowEmptyResults: true,
-                testResults: '*/test-reports/*.xml'
+                testResults: '**/test-reports/*.xml'
             )
         }
     }
